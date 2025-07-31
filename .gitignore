@@ -5,6 +5,10 @@ node_modules
 .pnp
 .pnp.js
 
+# Yarn Berry
+.yarn/cache
+.yarn/install-state.gz
+
 # Local env files
 .env
 .env.local
