@@ -1,5 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# ======================
+# Common - 공통
+# ======================
+
 # Dependencies
 node_modules
 .pnp
@@ -18,6 +22,7 @@ node_modules
 
 # Testing
 coverage
+.nyc_output
 
 # Turbo
 .turbo
@@ -25,21 +30,73 @@ coverage
 # Vercel
 .vercel
 
-# Build Outputs
-.next/
-out/
-build
-dist
-
-
-# Debug
+# Debug & Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs
+*.log
 
 # Misc
 .DS_Store
 *.pem
 
-
+# IDEs and editors
 .idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ======================
+# Client (React/Vite) - 클라이언트
+# ======================
+
+# Build Outputs
+dist
+dist-ssr
+*.local
+
+# ======================
+# API Server (NestJS) - API 서버
+# ======================
+
+# Build Outputs
+build
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# temp directory
+.temp
+.tmp
+
+# ======================
+# Next.js (if used) - Next.js 사용 시
+# ======================
+
+# Build Outputs
+.next/
+out/
