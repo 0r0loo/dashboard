@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { ImageGenerationService } from './image-generation.service';
 import { GenerateImageDto } from './dto/generate-image.dto';
+import { type ApiResponse, type GeneratedImage } from '@repo/types';
 
 @Controller('image-generation')
 export class ImageGenerationController {
@@ -15,7 +16,9 @@ export class ImageGenerationController {
   ) {}
 
   @Post('generate')
-  async generateImage(@Body() generateImageDto: GenerateImageDto) {
+  async generateImage(
+    @Body() generateImageDto: GenerateImageDto,
+  ): Promise<ApiResponse<GeneratedImage>> {
     try {
       const result =
         await this.imageGenerationService.generateImage(generateImageDto);

@@ -1,6 +1,7 @@
 import { IsString, IsOptional, IsNumber, Min, Max } from 'class-validator';
+import { type GenerateImageRequest } from '@repo/types';
 
-export class GenerateImageDto {
+export class GenerateImageDto implements GenerateImageRequest {
   @IsString()
   prompt: string;
 

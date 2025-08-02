@@ -16,6 +16,7 @@ AI 이미지 생성 서비스 - 사용자가 프롬프트를 입력하면 AI가 
 - `apps/api`: NestJS 기반 백엔드 API (포트 3000)
 - `packages/`: 공유 패키지들
   - `packages/tailwind-config`: Tailwind CSS v4 설정
+  - `packages/types`: 공유 TypeScript 타입 정의
 
 ### 디자인 시스템
 - **스타일**: 토스 디자인 시스템 모티브
@@ -28,6 +29,12 @@ AI 이미지 생성 서비스 - 사용자가 프롬프트를 입력하면 AI가 
 - **상태 관리**: TanStack Query v5
 - **환경 변수**: Vite의 `import.meta.env` 사용 (VITE_ 접두사)
 - **타입 안전성**: TypeScript로 API 인터페이스 정의
+
+### TypeScript 규칙
+- **타입 import**: `import type { TypeName }` 대신 `import { type TypeName }` 방식 사용
+- **빌드 호환성**: 클라이언트 빌드 오류 방지를 위해 inline type import 방식 선호
+- **공유 타입**: `@repo/types` 패키지에서 API 타입 import
+- **예시**: `import { type GeneratedImage, type ApiResponse } from '@repo/types'`
 
 ### 파일 관리 규칙
 - **`.gitignore`**: 루트에 통합 관리됨 - 개별 앱 폴더에 중복 생성 금지

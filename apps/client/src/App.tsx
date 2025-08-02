@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useImageGeneration } from './hooks/useImageGeneration';
-import type { GeneratedImage } from './types/api';
+import { type GeneratedImage } from '@repo/types';
 
 function App() {
   const [prompt, setPrompt] = useState('');

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { imageApi } from '../lib/image-api';
-import type { GenerateImageRequest } from '../types/api';
+import { type GenerateImageRequest } from '@repo/types';
 
 export const useImageGeneration = () => {
   return useMutation({

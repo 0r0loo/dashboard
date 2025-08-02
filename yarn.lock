@@ -1699,6 +1699,7 @@ __metadata:
   dependencies:
     "@repo/eslint-config": "workspace:*"
     "@repo/tailwind-config": "workspace:*"
+    "@repo/types": "workspace:*"
     "@repo/typescript-config": "workspace:*"
     "@tailwindcss/vite": "npm:^4.1.11"
     "@tanstack/react-query": "npm:^5.62.7"
@@ -1739,6 +1740,15 @@ __metadata:
   dependencies:
     "@tailwindcss/vite": "npm:^4.1.11"
     tailwindcss: "npm:^4.1.11"
+  languageName: unknown
+  linkType: soft
+
+"@repo/types@workspace:*, @repo/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@repo/types@workspace:packages/types"
+  dependencies:
+    "@repo/typescript-config": "workspace:*"
+    typescript: "npm:~5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -3188,6 +3198,7 @@ __metadata:
     "@nestjs/platform-express": "npm:^11.0.1"
     "@nestjs/schematics": "npm:^11.0.0"
     "@nestjs/testing": "npm:^11.0.1"
+    "@repo/types": "workspace:*"
     "@types/express": "npm:^5.0.0"
     "@types/jest": "npm:^30.0.0"
     "@types/node": "npm:^22.10.7"
