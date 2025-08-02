@@ -1,135 +1,125 @@
-# Turborepo starter
+# AI 이미지 생성 서비스
 
-This Turborepo starter is maintained by the Turborepo core team.
+사용자가 텍스트 프롬프트를 입력하면 AI가 이미지를 생성하여 반환하는 웹 애플리케이션입니다.
 
-## Using this example
+## 주요 기능
 
-Run the following command:
+- 🎨 **텍스트 → 이미지**: 자연어 프롬프트로 고품질 이미지 생성
+- 🚀 **실시간 생성**: 빠른 AI 이미지 생성 및 응답
+- 💡 **직관적 UI**: 토스 디자인 시스템 모티브의 깔끔한 인터페이스
+- 📱 **반응형 디자인**: 모든 디바이스에서 최적화된 사용자 경험
 
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 프로젝트 구조
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+dashboard/
+├── apps/
+│   ├── client/          # React + Vite 프론트엔드 (포트 5173)
+│   └── api/             # NestJS 백엔드 API (포트 3000)
+├── packages/
+│   ├── types/           # 공유 TypeScript 타입 정의
+│   └── tailwind-config/ # Tailwind CSS v4 설정
+└── turbo.json          # Turborepo 설정
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### 애플리케이션
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+- **`apps/client`**: React + Vite + Tailwind CSS 기반 프론트엔드
+  - 프롬프트 입력 UI
+  - 생성된 이미지 표시
+  - TanStack Query v5로 상태 관리
+  
+- **`apps/api`**: NestJS 기반 백엔드 API 서버
+  - 이미지 생성 API 엔드포인트
+  - 프롬프트 처리 및 AI 연동
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+### 공유 패키지
 
-### Develop
+- **`@repo/types`**: API 인터페이스 및 공통 타입 정의
+- **`@repo/tailwind-config`**: Tailwind CSS v4 설정 및 토스 디자인 시스템
 
-To develop all apps and packages, run the following command:
+## 기술 스택
 
-```
-cd my-turborepo
+- **Frontend**: React, Vite, Tailwind CSS v4, TypeScript
+- **Backend**: NestJS, TypeScript
+- **HTTP 클라이언트**: Axios
+- **상태 관리**: TanStack Query v5
+- **빌드 시스템**: Turborepo
+- **패키지 매니저**: Yarn Berry (v4.9.2)
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+## 개발 환경 설정
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+### 필수 요구사항
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+- Node.js >= 22
+- Yarn Berry v4.9.2
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+### 설치 및 실행
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+```bash
+# 의존성 설치
+yarn install
 
-### Remote Caching
+# 개발 서버 시작 (클라이언트: 5173, API: 3000)
+yarn dev
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+# 모든 앱 빌드
+yarn build
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### 개발 명령어
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+```bash
+# 개발 서버 시작
+yarn dev
 
+# 빌드
+yarn build
+
+# 린팅
+yarn lint
+
+# 타입 체크
+yarn check-types
+
+# 코드 포맷팅
+yarn format
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+## 디자인 시스템
+
+- **색상**: 토스 블루 (#3182F6, #4196FD), 화이트 배경
+- **타이포그래피**: 큰 텍스트, 넉넉한 간격
+- **컴포넌트**: 라운드 버튼, 카드 기반 UI
+- **스타일**: 토스 디자인 시스템 모티브
+
+## TypeScript 규칙
+
+- **인라인 타입 import**: `import { type TypeName }` 방식 사용
+- **공유 타입**: `@repo/types` 패키지에서 API 타입 import
+- **타입 안전성**: 모든 컴포넌트와 API에서 엄격한 타입 체크
+
+```typescript
+// 올바른 타입 import 방식
+import { type GeneratedImage, type ApiResponse } from '@repo/types'
 ```
 
-## Useful Links
+## API 연동
 
-Learn more about the power of Turborepo:
+- **HTTP 클라이언트**: Axios 기반
+- **상태 관리**: TanStack Query v5
+- **환경 변수**: Vite의 `import.meta.env` 사용 (VITE_ 접두사)
+- **타입 안전성**: TypeScript로 API 인터페이스 정의
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## 배포
+
+애플리케이션은 다음과 같이 독립적으로 배포할 수 있습니다:
+
+- **클라이언트**: Vercel, Netlify 등 정적 호스팅
+- **API**: Docker, Railway, Heroku 등 Node.js 지원 플랫폼
+
+## 기여하기
+
+1. 코드 스타일 가이드를 준수해주세요
+2. 타입 체크와 린팅을 통과하는지 확인해주세요
+3. 커밋 전에 `yarn check-types && yarn lint`를 실행해주세요
