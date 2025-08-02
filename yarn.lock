@@ -1701,9 +1701,11 @@ __metadata:
     "@repo/tailwind-config": "workspace:*"
     "@repo/typescript-config": "workspace:*"
     "@tailwindcss/vite": "npm:^4.1.11"
+    "@tanstack/react-query": "npm:^5.62.7"
     "@types/react": "npm:^19.1.8"
     "@types/react-dom": "npm:^19.1.6"
     "@vitejs/plugin-react": "npm:^4.6.0"
+    axios: "npm:^1.7.7"
     eslint: "npm:^9.30.1"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
@@ -2097,6 +2099,24 @@ __metadata:
   peerDependencies:
     vite: ^5.2.0 || ^6 || ^7
   checksum: 10/8f25a4dac6c562b67f46ccbbe013f42e5f139e53a825d13f66be00d2d9e757b819d60afc9666b0f20a0fcc357e2c1d697a359114d582f8f2d8312b8c333cc031
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:5.83.1":
+  version: 5.83.1
+  resolution: "@tanstack/query-core@npm:5.83.1"
+  checksum: 10/531650bafd70e2b5219ec79dd487461414e4ed8040067d8e3206d237ee39dd0b34a2573d20f751dfd1413b3d8df0b023fe22469c98765e3c8fab8391acf2f3c8
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.62.7":
+  version: 5.84.1
+  resolution: "@tanstack/react-query@npm:5.84.1"
+  dependencies:
+    "@tanstack/query-core": "npm:5.83.1"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10/b0d195df16d61acddf6bc5ef7acc34a335adcb9658f1f24a229965a7d8ca50fc60040a1dfb871e6f625004ffae26fa16a293d12fb30d9286e5ba35b2fb56ec05
   languageName: node
   linkType: hard
 
@@ -3356,6 +3376,17 @@ __metadata:
   dependencies:
     possible-typed-array-names: "npm:^1.0.0"
   checksum: 10/6c9da3a66caddd83c875010a1ca8ef11eac02ba15fb592dc9418b2b5e7b77b645fa7729380a92d9835c2f05f2ca1b6251f39b993e0feb3f1517c74fa1af02cab
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.7.7":
+  version: 1.11.0
+  resolution: "axios@npm:1.11.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.4"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10/232df4af7a4e4e07baa84621b9cc4b0c518a757b4eacc7f635c0eb3642cb98dff347326739f24b891b3b4481b7b838c79a3a0c4819c9fbc1fc40232431b9c5dc
   languageName: node
   linkType: hard
 
@@ -5056,6 +5087,16 @@ __metadata:
   version: 3.3.3
   resolution: "flatted@npm:3.3.3"
   checksum: 10/8c96c02fbeadcf4e8ffd0fa24983241e27698b0781295622591fc13585e2f226609d95e422bcf2ef044146ffacb6b68b1f20871454eddf75ab3caa6ee5f4a1fe
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.11
+  resolution: "follow-redirects@npm:1.15.11"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10/07372fd74b98c78cf4d417d68d41fdaa0be4dcacafffb9e67b1e3cf090bc4771515e65020651528faab238f10f9b9c0d9707d6c1574a6c0387c5de1042cde9ba
   languageName: node
   linkType: hard
 
@@ -7759,6 +7800,13 @@ __metadata:
     forwarded: "npm:0.2.0"
     ipaddr.js: "npm:1.9.1"
   checksum: 10/f24a0c80af0e75d31e3451398670d73406ec642914da11a2965b80b1898ca6f66a0e3e091a11a4327079b2b268795f6fa06691923fef91887215c3d0e8ea3f68
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 10/f0bb4a87cfd18f77bc2fba23ae49c3b378fb35143af16cc478171c623eebe181678f09439707ad80081d340d1593cd54a33a0113f3ccb3f4bc9451488780ee23
   languageName: node
   linkType: hard
 
