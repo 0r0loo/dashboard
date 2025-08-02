@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div className={'bg-red-500'}>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-100 px-6 py-4">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold text-gray-900">AI 이미지 생성기</h1>
+          <p className="text-gray-600 mt-1">
+            상상하는 모든 것을 이미지로 만들어보세요
+          </p>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            어떤 이미지를 만들고 싶으신가요?
+          </h2>
+          <p className="text-xl text-gray-600">
+            간단한 텍스트로 원하는 이미지를 생성해보세요
+          </p>
+        </div>
+
+        {/* Prompt Input Section */}
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 mb-8">
+          <div className="space-y-6">
+            <div>
+              <label className="block text-lg font-semibold text-gray-900 mb-3">
+                프롬프트 입력
+              </label>
+              <textarea
+                className="w-full p-4 text-lg border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                rows={4}
+                placeholder="예: 해질녘 바다 위를 나는 용, 판타지 스타일"
+              />
+            </div>
+
+            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl transition-colors">
+              이미지 생성하기
+            </button>
+          </div>
+        </div>
+
+        {/* Generated Images Section */}
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-900">생성된 이미지</h3>
+          <div className="text-center py-12 text-gray-500">
+            이미지를 생성하면 여기에 표시됩니다
+          </div>
+        </div>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

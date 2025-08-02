@@ -12,9 +12,16 @@ AI 이미지 생성 서비스 - 사용자가 프롬프트를 입력하면 AI가 
 
 ### 프로젝트 구조
 - Turborepo 모노레포
-- `apps/client`: React 기반 프론트엔드
-- `apps/api`: NestJS 기반 백엔드 API
+- `apps/client`: React + Vite + Tailwind CSS 프론트엔드 (포트 5173)
+- `apps/api`: NestJS 기반 백엔드 API (포트 3000)
 - `packages/`: 공유 패키지들
+  - `packages/tailwind-config`: Tailwind CSS v4 설정
+
+### 디자인 시스템
+- **스타일**: 토스 디자인 시스템 모티브
+- **색상**: 토스 블루 (#3182F6, #4196FD), 화이트 배경
+- **타이포그래피**: 큰 텍스트, 넉넉한 간격
+- **컴포넌트**: 라운드 버튼, 카드 기반 UI
 
 ## 개발 환경
 
