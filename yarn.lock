@@ -1730,13 +1730,17 @@ __metadata:
     "@repo/typescript-config": "workspace:*"
     "@tailwindcss/vite": "npm:^4.1.11"
     "@tanstack/react-query": "npm:^5.62.7"
+    "@tanstack/react-query-devtools": "npm:^5.84.1"
     "@types/react": "npm:^19.1.8"
     "@types/react-dom": "npm:^19.1.6"
     "@vitejs/plugin-react": "npm:^4.6.0"
     axios: "npm:^1.7.7"
+    clsx: "npm:^2.1.1"
     eslint: "npm:^9.30.1"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
+    sonner: "npm:^2.0.7"
+    tailwind-merge: "npm:^3.3.1"
     tailwindcss: "npm:^4.1.11"
     typescript: "npm:~5.8.3"
     vite: "npm:^7.0.4"
@@ -2150,6 +2154,25 @@ __metadata:
   version: 5.83.1
   resolution: "@tanstack/query-core@npm:5.83.1"
   checksum: 10/531650bafd70e2b5219ec79dd487461414e4ed8040067d8e3206d237ee39dd0b34a2573d20f751dfd1413b3d8df0b023fe22469c98765e3c8fab8391acf2f3c8
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.84.0":
+  version: 5.84.0
+  resolution: "@tanstack/query-devtools@npm:5.84.0"
+  checksum: 10/a8ccadb8ae0e1a43e1b56acb6bf2d7ec79016cd6d0502de776e22e211bf9416124333087ff825b27cba3f5f03ae7991e78f176711de5d1b2a59a8d69f19a8091
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.84.1":
+  version: 5.84.1
+  resolution: "@tanstack/react-query-devtools@npm:5.84.1"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.84.0"
+  peerDependencies:
+    "@tanstack/react-query": ^5.84.1
+    react: ^18 || ^19
+  checksum: 10/e55704b1a38b225f54cf0290651693276f310465a07d6ef644cb6748c2a518926320f15733138a53ce965b848c43bad38537b26222166be1d74638c3d9ba0ec7
   languageName: node
   linkType: hard
 
@@ -3898,6 +3921,13 @@ __metadata:
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
   checksum: 10/d06418b7335897209e77bdd430d04f882189582e67bd1f75a04565f3f07f5b3f119a9d670c943b6697d0afb100f03b866b3b8a1f91d4d02d72c4ecf2bb64b5dd
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10/cdfb57fa6c7649bbff98d9028c2f0de2f91c86f551179541cf784b1cfdc1562dcb951955f46d54d930a3879931a980e32a46b598acaea274728dbe068deca919
   languageName: node
   linkType: hard
 
@@ -8703,6 +8733,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sonner@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "sonner@npm:2.0.7"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+  checksum: 10/c80321646f7fe06f92f4c16da9d72a27aec34abbf41438f8d8e8292ba8546d6bb620c54a113928f049948db1ad29d0b2ad3e9cb29dd5802c30951b41c99f12c4
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:^1.2.1":
   version: 1.2.1
   resolution: "source-map-js@npm:1.2.1"
@@ -9058,6 +9098,13 @@ __metadata:
   dependencies:
     "@pkgr/core": "npm:^0.2.9"
   checksum: 10/6ecd88212b5be80004376b6ea74babcba284566ff59a50d8803afcaa78c165b5d268635c1dd84532ee3f690a979409e1eda225a8a35bed2d135ffdcea06ce7b0
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "tailwind-merge@npm:3.3.1"
+  checksum: 10/ad97f0763afdfdce785b8de50bc546951bb3cc803ab4f809cb10d654d9b7e28b0d19dead70ab9070edf479af68622a5f6ba16a21584fa8c21236855709dc648f
   languageName: node
   linkType: hard
 
