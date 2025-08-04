@@ -14,6 +14,8 @@ AI 이미지 생성 서비스 - 사용자가 프롬프트를 입력하면 AI가 
 - Turborepo 모노레포
 - `apps/client`: React + Vite + Tailwind CSS 프론트엔드 (포트 5173)
 - `apps/api`: NestJS 기반 백엔드 API (포트 3000)
+  - `apps/api/docker/`: Docker 관련 파일 (PostgreSQL)
+  - `apps/api/database/`: TypeORM 마이그레이션 및 시드 데이터
 - `packages/`: 공유 패키지들
   - `packages/tailwind-config`: Tailwind CSS v4 설정
   - `packages/types`: 공유 TypeScript 타입 정의
@@ -73,3 +75,80 @@ yarn check-types
 ```bash
 yarn format
 ```
+
+## 데이터베이스 설정
+
+### PostgreSQL (Docker)
+- **포트**: 54322
+- **사용자**: admin / admin
+- **데이터베이스**: dashboard
+
+### Docker 명령어
+```bash
+# API 폴더에서 실행
+cd apps/api
+yarn db:up        # PostgreSQL 시작
+yarn db:down      # PostgreSQL 중지
+yarn db:logs      # 로그 확인
+yarn db:reset     # 데이터베이스 초기화
+
+# 루트에서 실행
+yarn api:db:up    # API PostgreSQL 시작
+yarn api:db:down  # API PostgreSQL 중지
+yarn api:db:logs  # API 로그 확인
+yarn api:db:reset # API DB 초기화
+```
+
+### TypeORM 마이그레이션
+```bash
+cd apps/api
+
+# 마이그레이션 생성 (Entity 변경사항 자동 감지)
+yarn migration:generate CreateGeneratedImages
+
+# 빈 마이그레이션 파일 생성
+yarn migration:create AddNewField
+
+# 마이그레이션 실행
+yarn migration:run
+
+# 마이그레이션 롤백
+yarn migration:revert
+```
+
+### 개발 워크플로
+1. PostgreSQL 시작: `yarn api:db:up`
+2. Entity 수정
+3. 마이그레이션 생성: `yarn migration:generate [name]`
+4. 마이그레이션 실행: `yarn migration:run`
+5. 개발 서버 실행: `yarn dev`
+
+## API 서버 구조
+
+### 폴더 구조
+```
+apps/api/
+├── docker/                # Docker 관련 파일
+│   ├── docker-compose.yml # PostgreSQL 설정
+│   └── init-db/          # DB 초기화 스크립트
+├── database/             # TypeORM DB 파일들
+│   ├── migrations/       # 마이그레이션 파일
+│   └── seeds/           # 시드 데이터
+├── src/                 # 소스 코드
+│   ├── image-generation/ # 이미지 생성 모듈
+│   └── ...
+├── ormconfig.ts         # TypeORM CLI 설정
+└── .env                 # 환경 변수 (포트 54322)
+```
+
+### Entity 설정
+- `GeneratedImage` Entity: 이미지 생성 기록 저장
+- TypeORM 데코레이터 활용
+- 자동 타임스탬프 (`createdAt`, `updatedAt`)
+
+### 환경 변수
+- `DB_HOST`: localhost
+- `DB_PORT`: 54322
+- `DB_USERNAME`: admin
+- `DB_PASSWORD`: admin
+- `DB_NAME`: dashboard

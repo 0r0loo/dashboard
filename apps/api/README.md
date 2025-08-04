@@ -1,98 +1,168 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# AI 이미지 생성 API 서버
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+NestJS 기반의 AI 이미지 생성 API 서버입니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 기술 스택
 
-## Description
+- **Framework**: NestJS 11
+- **Database**: PostgreSQL 16 (Docker)
+- **ORM**: TypeORM
+- **Language**: TypeScript
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📁 프로젝트 구조
 
-## Project setup
-
-```bash
-$ yarn install
+```
+apps/api/
+├── docker/                # Docker 관련 파일
+│   ├── docker-compose.yml # PostgreSQL Docker 설정
+│   └── init-db/          # DB 초기화 스크립트
+│       └── 01-init.sql
+├── database/             # TypeORM DB 파일들
+│   ├── migrations/       # 마이그레이션 파일
+│   └── seeds/           # 시드 데이터
+├── src/                 # 소스 코드
+│   ├── image-generation/ # 이미지 생성 모듈
+│   └── ...
+├── ormconfig.ts         # TypeORM CLI 설정
+├── .env                 # 환경 변수
+└── package.json
 ```
 
-## Compile and run the project
+## 🐳 PostgreSQL 설정
+
+### 데이터베이스 정보
+- **Host**: localhost
+- **Port**: 54322
+- **Database**: dashboard
+- **Username**: admin
+- **Password**: admin
+
+### Docker 명령어
 
 ```bash
-# development
-$ yarn run start
+# PostgreSQL 시작
+yarn db:up
 
-# watch mode
-$ yarn run start:dev
+# PostgreSQL 중지
+yarn db:down
 
-# production mode
-$ yarn run start:prod
+# 로그 확인
+yarn db:logs
+
+# DB 초기화 (모든 데이터 삭제)
+yarn db:reset
 ```
 
-## Run tests
+## 🔄 TypeORM 마이그레이션
+
+### 마이그레이션 명령어
 
 ```bash
-# unit tests
-$ yarn run test
+# 마이그레이션 생성 (Entity 변경사항 자동 감지)
+yarn migration:generate CreateGeneratedImages
 
-# e2e tests
-$ yarn run test:e2e
+# 빈 마이그레이션 파일 생성
+yarn migration:create AddNewField
 
-# test coverage
-$ yarn run test:cov
+# 마이그레이션 실행
+yarn migration:run
+
+# 마이그레이션 롤백
+yarn migration:revert
 ```
 
-## Deployment
+### 개발 워크플로
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1. Entity 수정
+2. `yarn migration:generate [MigrationName]`으로 마이그레이션 생성
+3. `yarn migration:run`으로 마이그레이션 실행
+4. 프로덕션에서는 `synchronize: false` 사용
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 🛠️ 개발 환경 설정
+
+### 1. 환경 변수 설정
 
 ```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+cp .env.example .env
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 2. PostgreSQL 시작
 
-## Resources
+```bash
+yarn db:up
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### 3. 의존성 설치 및 개발 서버 실행
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+# 루트에서 전체 프로젝트 실행
+cd ../../
+yarn dev
 
-## Support
+# 또는 API만 실행
+yarn start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🧪 테스트
 
-## Stay in touch
+```bash
+# 단위 테스트
+yarn test
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# E2E 테스트
+yarn test:e2e
 
-## License
+# 테스트 커버리지
+yarn test:cov
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 📋 사용 가능한 스크립트
+
+### 개발 관련
+- `yarn start:dev` - 개발 서버 실행 (watch mode)
+- `yarn start:debug` - 디버그 모드로 실행
+- `yarn build` - 프로덕션 빌드
+
+### 데이터베이스 관련
+- `yarn db:up` - PostgreSQL 시작
+- `yarn db:down` - PostgreSQL 중지
+- `yarn db:logs` - PostgreSQL 로그 확인
+- `yarn db:reset` - 데이터베이스 초기화
+
+### 마이그레이션 관련
+- `yarn migration:generate [name]` - 마이그레이션 생성
+- `yarn migration:create [name]` - 빈 마이그레이션 생성
+- `yarn migration:run` - 마이그레이션 실행
+- `yarn migration:revert` - 마이그레이션 롤백
+
+### 코드 품질
+- `yarn lint` - ESLint 실행
+- `yarn format` - Prettier 포맷팅
+
+## 🌐 API 엔드포인트
+
+### 이미지 생성
+- `POST /image-generation/generate` - AI 이미지 생성
+
+### 헬스체크
+- `GET /` - 서버 상태 확인
+
+## 🔧 환경 변수
+
+```env
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=54322
+DB_USERNAME=admin
+DB_PASSWORD=admin
+DB_NAME=dashboard
+
+# API Server
+PORT=3000
+```
+
+## 📚 추가 정보
+
+- [NestJS 문서](https://docs.nestjs.com)
+- [TypeORM 문서](https://typeorm.io)
+- [PostgreSQL 문서](https://www.postgresql.org/docs/)
