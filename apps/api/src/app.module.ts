@@ -4,29 +4,40 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ImageGenerationModule } from './image-generation/image-generation.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import configuration, { Config } from './config/configuration';
+import { validate } from './config/env.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+      load: [configuration],
+      validate,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false, // 개발 환경에서만 true, 프로덕션에서는 false로 설정
-        logging: true,
-      }),
+      useFactory: (configService: ConfigService<Config>) => {
+        const dbConfig = configService.get('database', { infer: true })!;
+        return {
+          type: 'postgres',
+          host: dbConfig.host,
+          port: dbConfig.port,
+          username: dbConfig.username,
+          password: dbConfig.password,
+          database: dbConfig.database,
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: false, // 개발 환경에서만 true, 프로덕션에서는 false로 설정
+          logging: true,
+        };
+      },
       inject: [ConfigService],
     }),
     ImageGenerationModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
