@@ -164,6 +164,12 @@ apps/api/
 │   └── seeds/           # 시드 데이터
 ├── src/                 # 소스 코드
 │   ├── image-generation/ # 이미지 생성 모듈
+│   ├── users/           # 사용자 관리 모듈
+│   │   ├── entities/    # User, AuthProvider Entity
+│   │   ├── users.service.ts
+│   │   ├── users.controller.ts
+│   │   └── users.module.ts
+│   ├── auth/            # 인증 모듈 (예정)
 │   └── ...
 ├── ormconfig.ts         # TypeORM CLI 설정
 └── .env                 # 환경 변수 (포트 54322)
@@ -171,8 +177,16 @@ apps/api/
 
 ### Entity 설정
 - `GeneratedImage` Entity: 이미지 생성 기록 저장
+- `User` Entity: 사용자 정보 (username unique, email nullable)
+- `AuthProvider` Entity: 인증 제공자 정보 (local, google, kakao 등)
 - TypeORM 데코레이터 활용
 - 자동 타임스탬프 (`createdAt`, `updatedAt`)
+
+### 인증 시스템 설계
+- **일반 로그인**: username + password
+- **소셜 로그인**: OAuth2 (Google, Kakao, Naver, Github)
+- **복합 인증**: 하나의 User가 여러 AuthProvider 연결 가능
+- **JWT 토큰**: Access Token + Refresh Token (예정)
 
 ### 환경 변수
 - `DB_HOST`: localhost
