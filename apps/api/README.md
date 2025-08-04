@@ -59,10 +59,10 @@ yarn db:reset
 
 ```bash
 # 마이그레이션 생성 (Entity 변경사항 자동 감지)
-yarn migration:generate CreateGeneratedImages
+yarn migration:generate database/migrations/MigrationName
 
 # 빈 마이그레이션 파일 생성
-yarn migration:create AddNewField
+yarn migration:create database/migrations/MigrationName
 
 # 마이그레이션 실행
 yarn migration:run
@@ -71,12 +71,66 @@ yarn migration:run
 yarn migration:revert
 ```
 
-### 개발 워크플로
+### 🚀 첫 마이그레이션 실행 가이드
 
-1. Entity 수정
-2. `yarn migration:generate [MigrationName]`으로 마이그레이션 생성
-3. `yarn migration:run`으로 마이그레이션 실행
-4. 프로덕션에서는 `synchronize: false` 사용
+**1단계: PostgreSQL 시작**
+```bash
+yarn db:up
+```
+
+**2단계: Entity 확인**
+- `src/image-generation/entities/generated-image.entity.ts` 파일이 존재하는지 확인
+- Entity 데코레이터가 올바르게 설정되어 있는지 확인
+
+**3단계: 마이그레이션 생성**
+```bash
+yarn migration:generate database/migrations/CreateGeneratedImages
+```
+
+**4단계: 마이그레이션 실행**
+```bash
+yarn migration:run
+```
+
+**성공 시 출력 예시:**
+```
+Migration CreateGeneratedImages1754275902475 has been executed successfully.
+```
+
+### 📋 일반적인 개발 워크플로
+
+**기존 Entity 수정 시:**
+1. Entity 파일 수정 (예: 새 컬럼 추가)
+2. `yarn migration:generate database/migrations/AddNewColumn`
+3. 생성된 마이그레이션 파일 검토
+4. `yarn migration:run`으로 마이그레이션 실행
+5. 테스트 진행
+
+**새 Entity 추가 시:**
+1. 새 Entity 파일 생성
+2. Module에 Entity 추가
+3. `yarn migration:generate database/migrations/CreateNewEntity`
+4. `yarn migration:run`으로 마이그레이션 실행
+
+**롤백이 필요한 경우:**
+```bash
+yarn migration:revert  # 마지막 마이그레이션만 롤백
+```
+
+### ⚠️ 중요 사항
+
+- **프로덕션**: `synchronize: false` 사용 (이미 설정됨)
+- **마이그레이션 파일**: 직접 수정하지 말고 새로운 마이그레이션 생성
+- **백업**: 중요한 데이터가 있을 때는 백업 후 마이그레이션 실행
+- **팀 작업**: 마이그레이션 파일은 반드시 Git에 커밋
+
+### 🔍 마이그레이션 상태 확인
+
+마이그레이션 실행 시 다음과 같은 정보를 확인할 수 있습니다:
+- 실행된 마이그레이션 수
+- 새로 실행될 마이그레이션 수
+- 실행된 SQL 쿼리
+- 성공/실패 상태
 
 ## 🛠️ 개발 환경 설정
 

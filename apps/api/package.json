@@ -22,8 +22,8 @@
     "db:down": "docker-compose -f docker/docker-compose.yml down",
     "db:logs": "docker-compose -f docker/docker-compose.yml logs -f postgres",
     "db:reset": "docker-compose -f docker/docker-compose.yml down -v && docker-compose -f docker/docker-compose.yml up -d postgres",
-    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d ormconfig.ts database/migrations/",
-    "migration:create": "typeorm-ts-node-commonjs migration:create database/migrations/",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d ormconfig.ts",
+    "migration:create": "typeorm-ts-node-commonjs migration:create",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d ormconfig.ts",
     "migration:revert": "typeorm-ts-node-commonjs migration:revert -d ormconfig.ts"
   },

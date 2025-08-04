@@ -104,10 +104,10 @@ yarn api:db:reset # API DB 초기화
 cd apps/api
 
 # 마이그레이션 생성 (Entity 변경사항 자동 감지)
-yarn migration:generate CreateGeneratedImages
+yarn migration:generate database/migrations/CreateGeneratedImages
 
 # 빈 마이그레이션 파일 생성
-yarn migration:create AddNewField
+yarn migration:create database/migrations/AddNewField
 
 # 마이그레이션 실행
 yarn migration:run
@@ -116,12 +116,40 @@ yarn migration:run
 yarn migration:revert
 ```
 
-### 개발 워크플로
+### 첫 마이그레이션 실행 과정 (실제 경험)
+1. **PostgreSQL 시작**: `yarn api:db:up` (또는 `cd apps/api && yarn db:up`)
+2. **Docker 초기 스크립트 제거**: `init-db` 볼륨 마운트 제거하여 TypeORM만 사용
+3. **DB 리셋**: `yarn db:reset`으로 깨끗한 상태로 시작
+4. **마이그레이션 생성**: `yarn migration:generate database/migrations/CreateGeneratedImages`
+   - 성공 시: `Migration /path/to/migration.ts has been generated successfully.`
+5. **마이그레이션 실행**: `yarn migration:run`
+   - `migrations` 테이블 자동 생성
+   - `generated_images` 테이블 생성
+   - 성공 시: `Migration CreateGeneratedImages1754275902475 has been executed successfully.`
+
+### 개발 워크플로 (업데이트됨)
 1. PostgreSQL 시작: `yarn api:db:up`
-2. Entity 수정
-3. 마이그레이션 생성: `yarn migration:generate [name]`
-4. 마이그레이션 실행: `yarn migration:run`
-5. 개발 서버 실행: `yarn dev`
+2. Entity 수정 (예: `src/image-generation/entities/generated-image.entity.ts`)
+3. 마이그레이션 생성: `yarn migration:generate database/migrations/[MigrationName]`
+4. 생성된 마이그레이션 파일 검토 (`database/migrations/` 폴더)
+5. 마이그레이션 실행: `yarn migration:run`
+6. 개발 서버 실행: `yarn dev`
+
+### 마이그레이션 파일 구조
+```typescript
+// database/migrations/1754275902475-CreateGeneratedImages.ts
+export class CreateGeneratedImages1754275902475 implements MigrationInterface {
+  name = 'CreateGeneratedImages1754275902475';
+
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    // 테이블 생성 SQL
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    // 롤백 SQL
+  }
+}
+```
 
 ## API 서버 구조
 
