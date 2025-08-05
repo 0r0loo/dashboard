@@ -1,16 +1,11 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
+import { BaseEntity } from '../../common/entities/base.entity';
 
 @Entity('generated_images')
-export class GeneratedImage {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class GeneratedImage extends BaseEntity {
   @Column({ type: 'text' })
   prompt: string;
 
@@ -22,10 +17,4 @@ export class GeneratedImage {
 
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, any>;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }
