@@ -32,4 +32,8 @@ async function bootstrap() {
   await app.listen(appConfig.port);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
-bootstrap();
+
+bootstrap().catch((err) => {
+  console.error('Error starting application:', err);
+  process.exit(1);
+});

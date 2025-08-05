@@ -3,6 +3,14 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 
+interface JwtPayload {
+  sub: string;
+  email?: string;
+  name?: string;
+  iat?: number;
+  exp?: number;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -75,7 +83,7 @@ export class AuthService {
   }
 
   // JWT 페이로드 검증
-  async validateJwtPayload(payload: any): Promise<User | null> {
+  async validateJwtPayload(payload: JwtPayload): Promise<User | null> {
     return this.usersService.findById(payload.sub);
   }
 

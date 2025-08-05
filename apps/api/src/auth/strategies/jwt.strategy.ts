@@ -5,6 +5,14 @@ import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
 import { Config } from '../../config/configuration';
 
+interface JwtPayload {
+  sub: string;
+  email?: string;
+  name?: string;
+  iat?: number;
+  exp?: number;
+}
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -19,7 +27,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload: JwtPayload) {
     const user = await this.authService.validateJwtPayload(payload);
     if (!user) {
       throw new UnauthorizedException();
